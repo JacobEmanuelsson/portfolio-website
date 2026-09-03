@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 export default function SkillsSection() {
 
     const [skills, setSkills] = useState([]);
+    const [categories, setCategories] = useState([])
 
     useEffect(() => {
         async function loadSkills() {
@@ -16,6 +17,18 @@ export default function SkillsSection() {
         loadSkills();
     }, []);
 
+
+    useEffect(() => {
+        async function loadCategories() {
+            const response = await fetch("/api/categories");
+            const data = await response.json();
+
+            setCategories(data.data)
+        }
+
+        loadCategories();
+    }, [])
+    
     return (
         <section>
             <h2>
@@ -32,6 +45,13 @@ export default function SkillsSection() {
             )}
             </article>
             )}
+            {categories.map((category) =>
+            <p key={category.id}>
+                {category.name}
+            </p>
+
+            )}
+            
         </section>
     )
 }
