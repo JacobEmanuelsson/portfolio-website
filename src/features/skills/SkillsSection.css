@@ -1,0 +1,31 @@
+.skills-cluster {
+  margin-top: 2.4rem;
+}
+.skills-cluster:first-of-type {
+  margin-top: 1.8rem;
+}
+
+.skills-cluster-title {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.9rem;
+}
+
+.skills-tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.skills-tag {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid rgba(122, 116, 136, 0.3);
+  border-radius: 999px;
+  color: var(--ink);
+}

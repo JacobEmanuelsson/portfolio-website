@@ -1,27 +1,67 @@
 :root {
-  --background: #050505;
-  --foreground: #f5f5f0;
-  --muted: #a7a7a0;
-  --accent: #d7ff64;
+  --void: #050308;
+  --void-2: #0a0714;
+  --violet: #8a6cff;
+  --ink: #e4dcf0;
+  --muted: #7a7488;
+
+  --space-page-x: 8vw;
+
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: Georgia, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, "Cascadia Code", "Segoe UI Mono", Menlo, Consolas, "Liberation Mono", monospace;
 }
 
-* {
-  box-sizing: border-box;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;                 
+  background: var(--void);
+  color: var(--ink);
+  font-family: var(--font-body);
 }
 
-html {
-  background: var(--background);
+.mono { font-family: var(--font-mono); }
+
+h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+  line-height: 1.25;
 }
 
-body {
-  min-width: 320px;
-  min-height: 100vh;
-  margin: 0;
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* deck primitives */
+.stage { position: fixed; inset: 0; z-index: 5; }
 
-main {
-  min-height: 100vh;
+.panel {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 8vw;
+  opacity: 0; transform: scale(0.86);
+  pointer-events: none;
+  transition: opacity .75s cubic-bezier(.4,0,.2,1), transform .75s cubic-bezier(.4,0,.2,1);
+  will-change: opacity, transform;
+}
+.panel.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+
+.content-panel {
+  max-width: 940px; width: 100%; position: relative;
+  padding: 3.4rem 3.6rem;
+  background: rgba(15,10,26,0.38);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(228,220,240,0.09);
+  border-radius: 20px;
+  box-shadow: 0 0 0 1px rgba(138,108,255,0.04) inset, 0 30px 80px rgba(0,0,0,0.35);
+  max-height: 100%; overflow-y: auto;      
+}
+@media (max-width: 720px) { .content-panel { padding: 2.2rem 1.6rem; } }
+
+.section-label {
+  color: var(--violet); font-size: 12px; letter-spacing: .2em;
+  margin-bottom: 1.4rem; text-transform: lowercase;
+}
+.lede {
+  font-size: 1.02rem; line-height: 1.75; color: #c9c2d6;
+  margin-top: 1.3rem; max-width: 56ch;
 }

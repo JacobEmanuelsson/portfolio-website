@@ -1,0 +1,104 @@
+
+.backdrop-nebula {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.backdrop-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.4;
+}
+
+.backdrop-blob--b1 {
+  width: 46vw;
+  height: 46vw;
+  background: radial-gradient(circle, #8a6cff, transparent 70%);
+  top: -14vw;
+  left: -10vw;
+  animation: backdrop-driftA 22s ease-in-out infinite;
+}
+
+.backdrop-blob--b2 {
+  width: 38vw;
+  height: 38vw;
+  background: radial-gradient(circle, #3fd0ff, transparent 70%);
+  bottom: -16vw;
+  right: -8vw;
+  opacity: 0.25;
+  animation: backdrop-driftB 26s ease-in-out infinite;
+}
+
+.backdrop-blob--b3 {
+  width: 30vw;
+  height: 30vw;
+  background: radial-gradient(circle, #ff6cd9, transparent 70%);
+  top: 40%;
+  left: 60%;
+  opacity: 0.16;
+  animation: backdrop-driftC 30s ease-in-out infinite;
+}
+
+@keyframes backdrop-driftA {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(6vw, 4vw) scale(1.15); }
+}
+@keyframes backdrop-driftB {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(-5vw, -6vw) scale(1.1); }
+}
+@keyframes backdrop-driftC {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(-4vw, 5vw) scale(0.9); }
+}
+
+/* ---------- starfield: tiny twinkling dots (positions come from JS) ---------- */
+.backdrop-starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.backdrop-star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--ink);
+  animation: backdrop-twinkle 3.5s ease-in-out infinite;
+}
+
+@keyframes backdrop-twinkle {
+  0%, 100% { opacity: 0.15; }
+  50%      { opacity: 0.85; }
+}
+
+/* ---------- vignette: darken the screen edges ---------- */
+.backdrop-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    rgba(5, 3, 8, 0.5) 82%,
+    rgba(5, 3, 8, 0.88) 100%
+  );
+}
+
+/* ---------- grain: faint film-grain noise over everything (was missing) ---------- */
+.backdrop-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}

@@ -1,13 +1,21 @@
 
 import SkillsSection from "@/features/skills/SkillsSection";
-import ContactForm from "@/features/contact/ContactForm";
+import ContactSection from "@/features/contact/ContactSection";
+import HeroSection from "@/features/hero/HeroSection";
+import AboutSection from "@/features/about/AboutSection";
+import ProjectsSection from "@/features/projects/ProjectsSection";
+import Deck from "@/experience/Deck";
 
 export default function Home() {
   return (
-    <main>
-      <p>Portfolio foundation ready.</p>
+    <Deck>
+      <HeroSection/>
       <SkillsSection/>
-      <ContactForm/>
-    </main>
+
+      <ProjectsSection/>
+      <AboutSection/>
+      <ContactSection/>
+    </Deck>
+
   );
 }

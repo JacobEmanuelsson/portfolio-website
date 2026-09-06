@@ -1,57 +1,58 @@
-"use client"
-import { useEffect, useState } from "react";
+"use client";
+import { useEffect, useState, useMemo } from "react";
+import "./SkillsSection.css";
 
 export default function SkillsSection() {
+  const [skills, setSkills] = useState([]);
+  const [categories, setCategories] = useState([]);
 
-    const [skills, setSkills] = useState([]);
-    const [categories, setCategories] = useState([])
+  useEffect(() => {
+    async function loadSkills() {
+      const response = await fetch("/api/skills");
+      const data = await response.json();
+      setSkills(data.data);
+    }
+    loadSkills();
+  }, []);
 
-    useEffect(() => {
-        async function loadSkills() {
-            const response = await fetch("/api/skills");
-            const data = await response.json();
+  useEffect(() => {
+    async function loadCategories() {
+      const response = await fetch("/api/categories");
+      const data = await response.json();
+      setCategories(data.data);
+    }
+    loadCategories();
+  }, []);
 
-            setSkills(data.data);
-        }
+  const clusters = useMemo(() => {
+    return categories
+      .map((category) => ({
+        id: category.id,
+        name: category.name,
+        skills: skills.filter((skill) =>
+          skill.Skill_category?.some((link) => link.Categories?.id === category.id)
+        ),
+      }))
+      .filter((cluster) => cluster.skills.length > 0);
+  }, [categories, skills]);
 
-        loadSkills();
-    }, []);
+  return (
+    <section className="content-panel" data-scrollable>
+      <p className="section-label">capabilities</p>
+      <h2 data-reveal>What I can do</h2>
 
-
-    useEffect(() => {
-        async function loadCategories() {
-            const response = await fetch("/api/categories");
-            const data = await response.json();
-
-            setCategories(data.data)
-        }
-
-        loadCategories();
-    }, [])
-    
-    return (
-        <section>
-            <h2>
-                Skills
-            </h2>
-            {skills.map((skill) =>
-            <article key={skill.id}>
-                <h3>{skill.name}</h3>
-
-            {skill.Skill_category.map((connection) =>
-            <p key={connection.Categories.id}>
-                {connection.Categories.name}
-            </p>
-            )}
-            </article>
-            )}
-            {categories.map((category) =>
-            <p key={category.id}>
-                {category.name}
-            </p>
-
-            )}
-            
-        </section>
-    )
+      {clusters.map((cluster) => (
+        <div className="skills-cluster" key={cluster.id}>
+          <h3 className="skills-cluster-title" data-reveal>{cluster.name}</h3>
+          <ul className="skills-tags">
+            {cluster.skills.map((skill) => (
+              <li key={skill.id} className="skills-tag" data-reveal>
+                {skill.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+  );
 }
