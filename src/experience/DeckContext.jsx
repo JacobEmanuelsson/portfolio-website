@@ -4,6 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState } f
 
 const DeckContext = createContext(null);
 
+// any component inside <Deck> calls this to read activeIndex / goTo / advance etc.
 export const useDeck = () => useContext(DeckContext);
 
 const TRANSITION_MS = 780;
@@ -22,33 +23,40 @@ const STABLE_CALLBACKS = true;
 // -----------------------------------------------------------------------------
 
 export function DeckProvider({ count, children }) { 
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [activeIndex, setActiveIndex] = useState(0);  // state = drives the re-render (dots, panels)
     const [transitioning, setTransitioning] = useState(false);
 
+    // same values as refs — the window listeners below are set up once and would
+    // otherwise read a stale activeIndex/transitioning from that first render
     const activeRef = useRef(0);
     const transRef = useRef(false);
-    const interceptorRef = useRef(null);
+    const interceptorRef = useRef(null); // the intro drops a function here to grab the first gestures
 
     // when STABLE_CALLBACKS is false this changes every render, forcing goTo (and
     // therefore advance, and therefore the listener effect) to rebuild each time
     const nonce = STABLE_CALLBACKS ? 0 : Math.random();
 
+    // jump straight to a panel (used by the dot nav)
     const goTo = useCallback((i) => {
-        i = Math.max(0, Math.min(count - 1, i));
-        if (i === activeRef.current || transRef.current) return;
+        i = Math.max(0, Math.min(count - 1, i));           // keep i inside 0..count-1
+        if (i === activeRef.current || transRef.current) return; // already there, or mid-move
         transRef.current = true;
         setTransitioning(true);
         activeRef.current = i;
         setActiveIndex(i);
+        // unlock once the css fade has finished
         setTimeout(() => { transRef.current = false; setTransitioning(false); }, TRANSITION_MS);
 
     }, [count, nonce]);
 
+    // move one panel in a direction (wheel / keys / swipe)
     const advance = useCallback((dir) => {
+        // on panel 0 the intro gets first refusal on a forward gesture (begin / skip)
         if (activeRef.current === 0 && dir > 0 && interceptorRef.current?.(dir)) return;
         goTo(activeRef.current + dir);
     }, [goTo]);
 
+    // the intro calls this on mount; the returned fn clears it on unmount
     const registerInterceptor = useCallback((fn) => {
         interceptorRef.current = fn;
         return () => {
@@ -56,11 +64,13 @@ export function DeckProvider({ count, children }) {
         };
     }, []);
 
+    // all the scroll / key / touch listeners live here, set up once (advance is stable)
     useEffect(() => {
         if (!STABLE_CALLBACKS) {
             console.log("[deck] listeners (re)attached @", Math.round(performance.now()), "ms");
         }
 
+        // gesture state — lives here so it survives re-renders (that's the point of the stable advance)
         let wheelReady = true;
         let wheelIdleTimer;
 
@@ -81,9 +91,6 @@ export function DeckProvider({ count, children }) {
         };
 
         const onKey = (e) => {
-
-        if (e.target?.closest?.("[data-scrollable]")) return;
-
         if (e.key === "ArrowDown" || e.key === "PageDown") {
             e.preventDefault();
             advance(1);

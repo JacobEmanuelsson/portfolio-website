@@ -6,6 +6,7 @@ export default function SkillsSection() {
   const [skills, setSkills] = useState([]);
   const [categories, setCategories] = useState([]);
 
+  // skills — each row carries its category links (Skill_category)
   useEffect(() => {
     async function loadSkills() {
       const response = await fetch("/api/skills");
@@ -15,6 +16,7 @@ export default function SkillsSection() {
     loadSkills();
   }, []);
 
+  // categories — flat list, used to build the groups
   useEffect(() => {
     async function loadCategories() {
       const response = await fetch("/api/categories");
@@ -24,6 +26,7 @@ export default function SkillsSection() {
     loadCategories();
   }, []);
 
+  // group the skills under each category, drop categories with nothing in them
   const clusters = useMemo(() => {
     return categories
       .map((category) => ({
@@ -41,6 +44,7 @@ export default function SkillsSection() {
       <p className="section-label">capabilities</p>
       <h2 data-reveal>What I can do</h2>
 
+      {/* one block per category, its skills as tags inside */}
       {clusters.map((cluster) => (
         <div className="skills-cluster" key={cluster.id}>
           <h3 className="skills-cluster-title" data-reveal>{cluster.name}</h3>

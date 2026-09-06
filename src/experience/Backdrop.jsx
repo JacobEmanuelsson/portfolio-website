@@ -4,9 +4,12 @@ import "./Backdrop.css";
 
 const STAR_COUNT = 70;
 
+// fixed space background behind everything: blobs + stars + vignette + grain
 export default function Backdrop() {
   const [stars, setStars] = useState([]);
 
+  // build the random stars on the client only — random values during render
+  // would differ between server and client and break hydration
   useEffect(() => {
     setStars(Array.from({ length: STAR_COUNT }, () => ({
       left: Math.random() * 100,
@@ -19,13 +22,16 @@ export default function Backdrop() {
 
   return (
     <>
+      {/* three big blurred colour blobs, drift-animated in css */}
       <div className="backdrop-nebula" aria-hidden="true">
         <span className="backdrop-blob backdrop-blob--b1" />
         <span className="backdrop-blob backdrop-blob--b2" />
         <span className="backdrop-blob backdrop-blob--b3" />
       </div>
+
       <div className="backdrop-starfield" aria-hidden="true">
         {stars.map((s, i) => (
+          // position + twinkle offset are per-star, so they go inline
           <span key={i} className="backdrop-star" style={{
             left: `${s.left}%`, top: `${s.top}%`,
             animationDelay: `${s.delay}s`, opacity: s.opacity,
@@ -33,6 +39,7 @@ export default function Backdrop() {
           }} />
         ))}
       </div>
+
       <div className="backdrop-vignette" aria-hidden="true" />
       <div className="backdrop-grain" aria-hidden="true" />
     </>
