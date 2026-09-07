@@ -36,12 +36,13 @@ export default function Backdrop() {
             left: `${s.left}%`, top: `${s.top}%`,
             animationDelay: `${s.delay}s`, opacity: s.opacity,
             transform: `scale(${s.scale})`,
+            
           }} />
         ))}
       </div>
 
-      <div className="backdrop-vignette" aria-hidden="true" />
-      <div className="backdrop-grain" aria-hidden="true" />
+      <div className="backdrop-vignette" aria-hidden="true" >
+      </div>
     </>
   );
 }
