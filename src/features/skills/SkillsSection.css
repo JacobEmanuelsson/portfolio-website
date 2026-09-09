@@ -29,3 +29,28 @@
   border-radius: 999px;
   color: var(--ink);
 }
+
+/* Use screen height for vertical space, so laptop screens have more room. */
+.panel:has(.skills-panel) {
+  padding: clamp(16px, 4dvh, 40px) clamp(20px, 6vw, 100px);
+}
+
+.skills-panel {
+  padding: clamp(20px, 4dvh, 40px) clamp(20px, 4vw, 48px);
+  overscroll-behavior-y: contain;
+  scrollbar-width: none;
+}
+
+/* Hide the scrollbar while keeping the content scrollable. */
+.skills-panel::-webkit-scrollbar {
+  display: none;
+}
+
+.skills-panel:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: -2px;
+}
+
+.skills-panel .section-label { margin-bottom: 12px; }
+.skills-panel .skills-cluster { margin-top: clamp(18px, 3dvh, 28px); }
+.skills-panel .skills-cluster-title { margin-bottom: 10px; }

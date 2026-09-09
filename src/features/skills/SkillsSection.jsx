@@ -40,9 +40,9 @@ export default function SkillsSection() {
   }, [categories, skills]);
 
   return (
-    <section className="content-panel" data-scrollable>
+    <section className="content-panel skills-panel" data-scrollable tabIndex={0} aria-labelledby="skills-heading">
       <p className="section-label">capabilities</p>
-      <h2 data-reveal>What I can do</h2>
+      <h2 id="skills-heading" data-reveal>What I can do</h2>
 
       {/* one block per category, its skills as tags inside */}
       {clusters.map((cluster) => (
@@ -60,3 +60,4 @@ export default function SkillsSection() {
     </section>
   );
 }
+

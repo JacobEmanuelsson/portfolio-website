@@ -1,0 +1,168 @@
+.projects-section {
+  width: min(1180px, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  padding-block: 2rem;
+}
+
+.projects-section__header { margin-bottom: clamp(2rem, 5vw, 4rem); }
+.projects-section__message { color: var(--muted); font-family: var(--font-mono); }
+.projects-list { display: grid; gap: 5rem; }
+
+.project-spotlight {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(320px, 1.25fr);
+  align-items: center;
+  gap: clamp(2.5rem, 7vw, 7rem);
+}
+
+.project-spotlight__number {
+  margin-bottom: 1rem;
+  color: var(--violet);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+}
+
+.project-spotlight h3 {
+  max-width: 11ch;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.project-spotlight__description {
+  max-width: 42ch;
+  margin-top: 1.5rem;
+  color: #c9c2d6;
+  line-height: 1.75;
+}
+
+.project-spotlight__skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1.5rem;
+  list-style: none;
+}
+
+.project-spotlight__skills li {
+  padding: 0.38rem 0.7rem;
+  border: 1px solid rgba(138, 108, 255, 0.28);
+  border-radius: 999px;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.project-spotlight__links { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 2rem; }
+
+.project-spotlight__links a {
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid rgba(228, 220, 240, 0.35);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-decoration: none;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+
+.project-spotlight__links a:hover,
+.project-spotlight__links a:focus-visible { color: var(--violet); border-color: var(--violet); }
+
+.project-spotlight__preview {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-content: center;
+  min-height: clamp(260px, 42vw, 520px);
+  overflow: hidden;
+  border: 1px solid rgba(228, 220, 240, 0.13);
+  border-radius: 24px;
+  background: radial-gradient(circle at 68% 30%, rgba(138, 108, 255, 0.25), transparent 48%), rgba(10, 7, 20, 0.58);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.38);
+  text-align: center;
+  transform: rotate(1.5deg);
+}
+
+.project-spotlight__preview p { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.8rem); }
+
+.project-spotlight__preview small {
+  margin-top: 0.7rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.project-spotlight__orbit {
+  position: absolute;
+  z-index: -1;
+  width: 68%;
+  aspect-ratio: 1;
+  place-self: center;
+  border: 1px solid rgba(138, 108, 255, 0.35);
+  border-radius: 50%;
+  box-shadow: 0 0 55px rgba(138, 108, 255, 0.12);
+  transform: rotate(-22deg) scaleY(0.58);
+}
+
+@media (max-width: 760px) {
+  .project-spotlight { grid-template-columns: 1fr; }
+  .project-spotlight__preview { grid-row: 1; min-height: 240px; transform: none; }
+}
+/* Keep the spotlight proportional to the available screen height. */
+.panel:has(.projects-section) {
+  padding: clamp(16px, 4dvh, 40px) clamp(20px, 6vw, 100px);
+}
+
+.projects-section {
+  padding-block: 0;
+}
+
+.projects-section__header {
+  margin-bottom: clamp(16px, 3dvh, 32px);
+}
+
+.projects-section__header .section-label {
+  margin-bottom: 8px;
+}
+
+.project-spotlight {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: clamp(24px, 5vw, 64px);
+}
+
+.project-spotlight h3 {
+  font-size: clamp(2rem, min(4vw, 6dvh), 3.8rem);
+}
+
+.project-spotlight__preview {
+  min-height: 0;
+  height: min(48dvh, 420px);
+  transform: none;
+  padding: 20px;
+}
+
+.project-spotlight__description {
+  margin-top: 16px;
+  line-height: 1.6;
+}
+
+.project-spotlight__skills { margin-top: 16px; }
+.project-spotlight__links { margin-top: 20px; }
+
+@media (max-width: 760px) {
+  .project-spotlight { grid-template-columns: 1fr; gap: 16px; }
+  .project-spotlight__preview { height: min(22dvh, 180px); }
+  .project-spotlight h3 { max-width: none; font-size: clamp(1.8rem, 5vw, 2.5rem); }
+  .project-spotlight__number { margin-bottom: 8px; }
+  .projects-section__header h2 { font-size: 1.4rem; }
+}
+
+@media (max-height: 600px) and (min-width: 761px) {
+  .project-spotlight__description { margin-top: 10px; font-size: 0.9rem; }
+  .project-spotlight__skills { margin-top: 10px; }
+  .project-spotlight__links { margin-top: 12px; }
+}
