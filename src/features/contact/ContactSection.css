@@ -1,0 +1,95 @@
+.contact-section {
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+}
+
+.contact-section h2 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.1;
+}
+
+.contact-section__description {
+  max-width: 48ch;
+  margin: 24px auto 36px;
+  color: #c9c2d6;
+  line-height: 1.75;
+}
+
+/* The main action gets more emphasis than the social links. */
+.contact-section__email {
+  max-width: 100%;
+  padding: 18px 24px;
+  border: 1px solid rgba(138, 108, 255, 0.4);
+  border-radius: 12px;
+  background: rgba(138, 108, 255, 0.06);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+  user-select: text;
+}
+
+.contact-section__email:hover {
+  background: rgba(138, 108, 255, 0.14);
+  border-color: var(--violet);
+}
+
+.contact-section__email:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 5px;
+}
+
+/* Both labels share the same space inside the button. */
+.contact-section__email { display: inline-grid; }
+.contact-section__email-address,
+.contact-section__email-feedback { grid-area: 1 / 1; align-self: center; }
+
+/* Keep the other links together underneath the email button. */
+.contact-section__socials {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.contact-section__socials a {
+  color: #aaa2b8;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: color 200ms;
+}
+
+.contact-section__socials a:hover {
+  color: var(--violet);
+}
+
+/* Move the arrow slightly when a link is hovered. */
+.contact-section a span {
+  display: inline-block;
+  transition: transform 200ms;
+}
+
+.contact-section a:hover span {
+  transform: translate(2px, -2px);
+}
+
+/* Make keyboard navigation easy to see. */
+.contact-section a:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-section a,
+  .contact-section a span {
+    transition: none;
+  }
+
+  .contact-section a:hover span {
+    transform: none;
+  }
+}

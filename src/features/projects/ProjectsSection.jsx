@@ -31,7 +31,7 @@ export default function ProjectsSection() {
 
   return (
     <section id="projects" className="projects-section" aria-labelledby="projects-heading" data-scrollable>
-      <header className="projects-section__header">
+      <header className="projects-section__header section-reveal">
         <p className="section-label">Selected work</p>
         <h2 id="projects-heading">Projects I&apos;ve built</h2>
       </header>
@@ -48,7 +48,7 @@ export default function ProjectsSection() {
 
           return (
             <article className="project-spotlight" key={project.id}>
-              <div className="project-spotlight__content">
+              <div className="project-spotlight__content section-reveal section-reveal-content">
                 <p className="project-spotlight__number">{String(index + 1).padStart(2, "0")}</p>
                 <h3>{project.title}</h3>
                 <p className="project-spotlight__description">{project.description}</p>
@@ -59,13 +59,13 @@ export default function ProjectsSection() {
                   </ul>
                 )}
 
-                <div className="project-spotlight__links">
+                <div className="project-spotlight__links section-reveal section-reveal-links">
                   {project.live_url && <a href={project.live_url} target="_blank" rel="noreferrer">Visit project <span aria-hidden="true">↗</span></a>}
                   {project.repo_url && <a href={project.repo_url} target="_blank" rel="noreferrer">View source <span aria-hidden="true">↗</span></a>}
                 </div>
               </div>
 
-              <div className="project-spotlight__preview" aria-hidden="true">
+              <div className="project-spotlight__preview section-reveal section-reveal-content" aria-hidden="true">
                 <span className="project-spotlight__orbit" />
                 <p>{project.title}</p>
                 <small>Project preview</small>

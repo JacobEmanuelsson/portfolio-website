@@ -65,3 +65,31 @@ h2 {
   font-size: 1.02rem; line-height: 1.75; color: #c9c2d6;
   margin-top: 1.3rem; max-width: 56ch;
 }
+/* The ordinary sections fade without zooming. The hero keeps its own effect. */
+.panel:not(:has(.hero)) {
+  transform: none;
+}
+
+/* Reuse these classes for headings, content groups, and links. */
+.section-reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+
+.panel.active .section-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delay only the entrance, so leaving a section does not feel slow. */
+.panel.active .section-reveal-content { transition-delay: 100ms; }
+.panel.active .section-reveal-links { transition-delay: 200ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .panel .section-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

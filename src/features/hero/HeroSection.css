@@ -75,7 +75,11 @@
 }
 
 .is-entering .name-stars { opacity: 1; transition: none; }
-.is-entering .hero h1 { visibility: hidden; }
+/* Keep the text hidden while the old panel finishes fading out. */
+.is-entering .hero h1,
+.panel:not(.active) .hero {
+  visibility: hidden;
+}
 .is-entering .hero-enter { opacity: 0; animation: none; }
 .is-entering::before { opacity: 0; }
 .hero-role { display: none; }
