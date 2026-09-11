@@ -50,7 +50,7 @@ export default function ContactSection() {
         }
     }
     return (
-        <section id="contact" className="contact-section">
+        <section id="contact" className="contact-section" data-scrollable tabIndex={0}>
             <header className="section-header section-reveal">
                 <p className="section-label">Contact</p>
                 <h2>Let’s get in touch.</h2>

@@ -54,3 +54,7 @@
 .skills-panel .section-label { margin-bottom: 12px; }
 .skills-panel .skills-cluster { margin-top: clamp(18px, 3dvh, 28px); }
 .skills-panel .skills-cluster-title { margin-bottom: 10px; }
+
+@media (max-width: 760px) {
+  .panel:has(.skills-panel) { padding-bottom: calc(clamp(16px, 4dvh, 40px) + var(--nav-clearance)); }
+}

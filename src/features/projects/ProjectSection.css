@@ -154,6 +154,8 @@
 .project-spotlight__links { margin-top: 20px; }
 
 @media (max-width: 760px) {
+  .panel:has(.projects-section) { padding-bottom: calc(clamp(16px, 4dvh, 40px) + var(--nav-clearance)); }
+
   .project-spotlight { grid-template-columns: 1fr; gap: 16px; }
   .project-spotlight__preview { height: min(22dvh, 180px); }
   .project-spotlight h3 { max-width: none; font-size: clamp(1.8rem, 5vw, 2.5rem); }

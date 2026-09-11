@@ -6,6 +6,7 @@
   --muted: #7a7488;
 
   --space-page-x: 8vw;
+  --nav-clearance: 84px;
 
   --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-display: Georgia, "Times New Roman", Times, serif;
@@ -55,7 +56,10 @@ h2 {
   box-shadow: 0 0 0 1px rgba(138,108,255,0.04) inset, 0 30px 80px rgba(0,0,0,0.35);
   max-height: 100%; overflow-y: auto;      
 }
-@media (max-width: 720px) { .content-panel { padding: 2.2rem 1.6rem; } }
+@media (max-width: 760px) {
+  .content-panel { padding: 2.2rem 1.6rem; }
+  .panel { padding-bottom: calc(8vw + var(--nav-clearance)); }
+}
 
 .section-label {
   color: var(--violet); font-size: 12px; letter-spacing: .2em;

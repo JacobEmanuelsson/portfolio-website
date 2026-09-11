@@ -1,0 +1,93 @@
+.section-nav {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  z-index: 20;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sectiondot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+
+  min-height: 44px;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Override the existing global section-label styles here. */
+.section-nav .section-label {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+.section-nav .dot {
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--muted);
+  border-radius: 50%;
+  transition: background-color 200ms, box-shadow 200ms;
+}
+
+.sectiondot.active .dot {
+  border-color: var(--violet);
+  background: var(--violet);
+  box-shadow: 0 0 12px rgba(138, 108, 255, 0.5);
+}
+
+.sectiondot:hover .section-label,
+.sectiondot:focus-visible .section-label,
+.sectiondot.active .section-label {
+  opacity: 1;
+}
+
+.sectiondot:focus-visible {
+  outline: 1px solid var(--violet);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Move navigation beneath the content on smaller screens. */
+@media (max-width: 760px) {
+  .section-nav {
+    top: auto;
+    right: auto;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: row;
+    gap: 2px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: var(--void-2);
+  }
+
+  .sectiondot {
+    position: relative;
+    justify-content: center;
+    min-width: 44px;
+  }
+
+  .section-nav .section-label {
+    position: absolute;
+    bottom: 100%;
+    padding: 4px 6px;
+    border-radius: 4px;
+    background: var(--void-2);
+    white-space: nowrap;
+  }
+}
+

@@ -3,6 +3,7 @@
 import { Children, useEffect, useRef, useState } from "react";
 import Panel from "./Panel";
 import NameStars from "./NameStars";
+import SectionNav from "./SectionNav";
 
 const TRANSITION_MS = 780;
 const WHEEL_IDLE_MS = 150;
@@ -18,6 +19,11 @@ export default function Deck({ children }) {
 
   const activeRef = useRef(0);
   const lockRef = useRef(false);
+
+
+  function jump(i) {
+    setActiveIndex(i);
+  }
 
   useEffect(() => {
     let navigationTimer;
@@ -47,7 +53,7 @@ export default function Deck({ children }) {
 
     }
 
-
+    
     function advance(dir) {
       goTo(activeRef.current + dir);
     }
@@ -100,11 +106,11 @@ export default function Deck({ children }) {
       scrollingInsidePanel = needsInnerScroll(e.target);
     }
     function onTouchMove(e) {
-      if (scrollingInsidePanel) return;
+      if (scrollingInsidePanel || e.touches.length > 1) return;
       e.preventDefault();
     }
     function onTouchEnd(e) {
-      if (scrollingInsidePanel) return;
+      if (scrollingInsidePanel || e.touches.length > 0) return;
       const dy = touchStartY - e.changedTouches[0].clientY;
       if (Math.abs(dy) < SWIPE_THRESHOLD) return; // a tap, not a swipe
       advance(dy > 0 ? 1 : -1); // swipe up => forward
@@ -129,6 +135,9 @@ export default function Deck({ children }) {
     };
   }, [count]); 
 
+
+  
+
   return (
     <div className={"stage" + (activeIndex === 0 ? " is-intro" : "") + (entering ? " is-entering" : "")}>
       <NameStars running={entering} />
@@ -137,6 +146,10 @@ export default function Deck({ children }) {
           {child}
         </Panel>
       ))}
+      <SectionNav
+        activeIndex={activeIndex}
+        onNavigation={jump}
+      />
     </div>
   );
 }
