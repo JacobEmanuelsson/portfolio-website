@@ -13,6 +13,11 @@ export default function AboutSection() {
       tabIndex={0}
     >
       <header className="about-section__header section-reveal">
+        <img
+          src="/images/IMG_3878.jpeg"
+          alt="Portrait of Jacob Emanuelsson"
+          className="about-section__photo"
+        />
         <p className="section-label">About me</p>
         <h2 id="about-heading">
           Curious about technology.

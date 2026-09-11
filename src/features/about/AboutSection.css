@@ -23,6 +23,17 @@
   outline-offset: -1px;
 }
 
+.about-section__photo {
+  display: block;
+  width: clamp(88px, 10vw, 120px);
+  aspect-ratio: 1;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(138, 108, 255, 0.35);
+  box-shadow: 0 0 30px rgba(138, 108, 255, 0.12);
+}
+
 .about-section__header h2 {
   font-size: clamp(2rem, 4vw, 3.5rem);
   line-height: 1.15;
@@ -62,6 +73,7 @@
   .panel:has(.about-section) { padding-bottom: calc(clamp(16px, 4dvh, 40px) + var(--nav-clearance)); }
 
   .about-section { grid-template-columns: 1fr; gap: 14px; padding-block: 8px; }
+  .about-section__photo { width: 72px; margin-bottom: 12px; }
   .about-section__header h2 { font-size: 1.5rem; line-height: 1.2; }
   .about-section__header h2 span { margin-top: 8px; }
   .about-section__content { font-size: 0.88rem; line-height: 1.5; }
