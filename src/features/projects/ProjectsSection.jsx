@@ -5,6 +5,7 @@ import "./ProjectSection.css";
 
 export default function ProjectsSection() {
   const [projects, setProjects] = useState([]);
+  const [failedImages, setFailedImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -30,7 +31,7 @@ export default function ProjectsSection() {
   }, []);
 
   return (
-    <section id="projects" className="projects-section" aria-labelledby="projects-heading" data-scrollable>
+    <section id="projects" className="projects-section" aria-labelledby="projects-heading" data-scrollable tabIndex={0}>
       <header className="projects-section__header section-reveal">
         <p className="section-label">Selected work</p>
         <h2 id="projects-heading">Projects I&apos;ve built</h2>
@@ -45,6 +46,7 @@ export default function ProjectsSection() {
       <div className="projects-list">
         {projects.map((project, index) => {
           const skills = project.Project_skills?.map((link) => link.Skills).filter(Boolean) ?? [];
+          const coverUrl = project.cover_url || (project.repo_url === "https://github.com/JacobEmanuelsson/wallet-app" ? "/images/wallet-app-dashboard.jpg" : "");
 
           return (
             <article className="project-spotlight" key={project.id}>
@@ -65,11 +67,34 @@ export default function ProjectsSection() {
                 </div>
               </div>
 
-              <div className="project-spotlight__preview section-reveal section-reveal-content" aria-hidden="true">
-                <span className="project-spotlight__orbit" />
-                <p>{project.title}</p>
-                <small>Project preview</small>
-              </div>
+              <figure className="project-spotlight__preview section-reveal section-reveal-content">
+                {/* A screenshot URL can come from Supabase Storage or public/images. */}
+                {coverUrl && !failedImages.includes(project.id) ? (
+                  <img
+                    className="project-spotlight__image"
+                    src={coverUrl}
+                    alt={project.title + " project preview"}
+                    loading="lazy"
+                    onError={() => setFailedImages((ids) => [...ids, project.id])}
+                  />
+                ) : (
+                  <div className="project-spotlight__illustration">
+                    {project.title.toLowerCase().includes("wallet") ? (
+                      <div className="project-spotlight__wallet" aria-hidden="true">
+                        <span className="project-spotlight__currency">SEK</span>
+                        <span className="project-spotlight__transfer">↔</span>
+                        <span className="project-spotlight__currency">EUR</span>
+                        <span className="project-spotlight__currency">USD</span>
+                      </div>
+                    ) : (
+                      <span className="project-spotlight__orbit" aria-hidden="true" />
+                    )}
+                    <p>{project.title}</p>
+                    {project.tagline && <span className="project-spotlight__tagline">{project.tagline}</span>}
+                    <small>Project illustration</small>
+                  </div>
+                )}
+              </figure>
             </article>
           );
         })}
